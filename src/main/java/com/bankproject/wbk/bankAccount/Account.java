@@ -28,18 +28,21 @@ public class Account {
         return accountCounter;
     }
 
+    // DEPOSIT MONEY
     public void depositMoney(BigDecimal amount) {
         displayAccountOwnerAndID();
         balance = balance.add(amount);
         System.out.println("Amount deposited: " + amount + "\n");
     }
 
+    // WITHDRAW MONEY
     public void withdrawMoney(BigDecimal amount) {
         displayAccountOwnerAndID();
         balance = balance.subtract(amount);
         System.out.println("Amount withdrawn: " + amount + "\n");
     }
 
+    // ACCOUNT BALANCE
     public void showCurrentAccountBalance() {
         displayAccountOwnerAndID();
         System.out.println("Account balance: " + balance + "\n");
@@ -49,5 +52,12 @@ public class Account {
         System.out.println("Account ID: " + getAccountID() + "\n" + customerName.toUpperCase());
     }
 
-
+    @Override
+    public String toString() {
+        return "Account {" +
+                "customerName = '" + customerName + '\'' +
+                ", accountID = " + accountID +
+                ", balance = " + balance +
+                '}';
+    }
 }
