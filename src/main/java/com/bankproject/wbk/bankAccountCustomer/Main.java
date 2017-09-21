@@ -15,17 +15,18 @@ public class Main {
         Account wbkKatarzynaKroszel = wbk.createNewAccount("Katarzyna Kroszel", BigDecimal.valueOf(700));
         Account wbkAlicjaKroszel = wbk.createNewAccount("Alicja Kroszel", BigDecimal.valueOf(2000));
         wbk.printArrayOfBankAccounts();
-        wbk.displayTotalAccountsCreated();
+        wbk.accountsCreatedInBank();
 
         Bank mBank = new Bank("mBank");
         Account mBankJanKowalski = mBank.createNewAccount("Małgorzata Dymek", BigDecimal.valueOf(-500));
         mBank.printArrayOfBankAccounts();
-        mBank.displayTotalAccountsCreated();
+        mBank.accountsCreatedInBank();
 
         Bank alior = new Bank("Alior Bank");
         Account aliorAgnieszkaDrozdowska = alior.createNewAccount("Agnieszka Drozdowska", BigDecimal.valueOf(5000));
         Account aliorStanislawDrozdowski = alior.createNewAccount("Stanislaw Drozdowski", BigDecimal.valueOf(1000));
         alior.printArrayOfBankAccounts();
-        alior.displayTotalAccountsCreated();
+        alior.accountsCreatedInBank();
+
     }
 }
