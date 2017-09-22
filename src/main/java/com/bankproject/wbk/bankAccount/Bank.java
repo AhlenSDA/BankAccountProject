@@ -14,8 +14,9 @@ public class Bank {
     }
 
     public Account createNewAccount(String customersName, BigDecimal startingBalance) {
-        bankAccountList.add(new Account(customersName, startingBalance));
-        return new Account(customersName, startingBalance);
+        Account newAccount = new Account(customersName, startingBalance);
+        bankAccountList.add(newAccount);
+        return newAccount;
     }
 
     public void printArrayOfBankAccounts() {
@@ -26,7 +27,7 @@ public class Bank {
     }
 
     public void accountsCreatedInBank () {
-        System.out.println("Total customers accounts created: " + bankAccountList.size());
+        System.out.println("Total accounts created: " + bankAccountList.size());
     }
 
     public void listMethodTest () {
