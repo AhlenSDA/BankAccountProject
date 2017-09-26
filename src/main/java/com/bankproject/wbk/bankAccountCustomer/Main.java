@@ -10,23 +10,31 @@ public class Main {
     public static void main(String[] args) {
 
         Bank wbk = new Bank("WBK");
-
         Account wbkMarcinKroszel = wbk.createNewAccount("Marcin Kroszel", BigDecimal.valueOf(500));
         Account wbkKatarzynaKroszel = wbk.createNewAccount("Katarzyna Kroszel", BigDecimal.valueOf(700));
-        Account wbkAlicjaKroszel = wbk.createNewAccount("Alicja Kroszel", BigDecimal.valueOf(2000));
+        Account wbkAlicjaKroszel = wbk.createNewAccount("Alicja Kroszel", BigDecimal.valueOf(2000.999));
         wbk.printArrayOfBankAccounts();
-        wbk.accountsCreatedInBank();
 
         Bank mBank = new Bank("mBank");
-        Account mBankJanKowalski = mBank.createNewAccount("Małgorzata Dymek", BigDecimal.valueOf(-500));
+        Account mBankMalgorzataDymek = mBank.createNewAccount("Małgorzata Dymek", BigDecimal.valueOf(-500.01));
+        Account mBankDawidKata = mBank.createNewAccount("Dawid Kata", BigDecimal.valueOf(1999.99));
+        Account mBankMartaKata = mBank.createNewAccount("Marta Kata", BigDecimal.valueOf(1999.999));
+        Account mBankStanislawKata = mBank.createNewAccount("Stanislaw Kata", BigDecimal.valueOf(1999.9999));
         mBank.printArrayOfBankAccounts();
-        mBank.accountsCreatedInBank();
 
         Bank alior = new Bank("Alior Bank");
-        Account aliorAgnieszkaDrozdowska = alior.createNewAccount("Agnieszka Drozdowska", BigDecimal.valueOf(5000));
-        Account aliorStanislawDrozdowski = alior.createNewAccount("Stanislaw Drozdowski", BigDecimal.valueOf(1000));
+        Account aliorAgnieszkaDrozdowska = alior.createNewAccount("Agnieszka Drozdowska", BigDecimal.valueOf(9500000.135));
+        Account aliorStanislawDrozdowski = alior.createNewAccount("Stanislaw Drozdowski", BigDecimal.valueOf(.456789));
         alior.printArrayOfBankAccounts();
-        alior.accountsCreatedInBank();
+
+        System.out.println("\n---------------------------------");
+        System.out.println("TESTING MONEY TRANSFER METHOD");
+
+        wbkMarcinKroszel.transferMoney(wbkMarcinKroszel, wbkKatarzynaKroszel, BigDecimal.valueOf(600));
+        wbkMarcinKroszel.showCurrentAccountBalance();
+        wbkKatarzynaKroszel.showCurrentAccountBalance();
+
+        wbk.printArrayOfBankAccounts();
 
     }
 }

@@ -1,63 +1,70 @@
 package com.bankproject.wbk.bankAccount;
 
 import java.math.BigDecimal;
+import java.text.NumberFormat;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Account {
 
     private String customerName;
     private BigDecimal balance;
-    private static int accountCounter = 0;
-    private int accountID;
+    private final int ACCOUNT_ID; // how to make bank's accounts to have separate ID number? Does it even make sense?
+    private static AtomicInteger nextId = new AtomicInteger();
 
     Account(String accountOwnerName, BigDecimal accountStartingBalance) {
         this.customerName = accountOwnerName;
         this.balance = accountStartingBalance;
-        accountCounter++;
-        this.accountID = accountCounter;
-
-        // account_ID++ and accountCounter
-        // Each time new account object is created, it's personal id number is assigned while accountCounter increments.
-        // Those fields are meant to differ accounts from each other by unique number and also count their total amount at the same time.
+        this.ACCOUNT_ID = nextId.incrementAndGet();
     }
 
-    private int getAccountID() {
-        return accountID;
-    }
-
-    static int getAccountCounter() {
-        return accountCounter;
-    }
-
-    // DEPOSIT MONEY
     public void depositMoney(BigDecimal amount) {
-        displayAccountOwnerAndID();
         balance = balance.add(amount);
         System.out.println("Amount deposited: " + amount + "\n");
     }
 
-    // WITHDRAW MONEY
     public void withdrawMoney(BigDecimal amount) {
-        displayAccountOwnerAndID();
         balance = balance.subtract(amount);
         System.out.println("Amount withdrawn: " + amount + "\n");
     }
 
-    // ACCOUNT BALANCE
     public void showCurrentAccountBalance() {
-        displayAccountOwnerAndID();
-        System.out.println("Account balance: " + balance + "\n");
+        System.out.println(customerName + ", balance: " + balance);
     }
 
-    private void displayAccountOwnerAndID() {
-        System.out.println("Account ID: " + getAccountID() + "\n" + customerName.toUpperCase());
+    // need to fix if statement (negative amount of money can be transferred atm)
+    public void transferMoney (Account transferringAccount, Account receivingAccount, BigDecimal moneyToTransfer) {
+        if (moneyToTransfer.compareTo(BigDecimal.ZERO) >= transferringAccount.balance.compareTo(BigDecimal.ZERO)) {
+            transferringAccount.balance = transferringAccount.balance.subtract(moneyToTransfer);
+            receivingAccount.balance = receivingAccount.balance.add(moneyToTransfer);
+        } else
+            System.out.println("ERROR");
     }
 
+// Default working toString method
+//    @Override
+//    public String toString() {
+//        return "Account {" +
+//                "customerName = '" + customerName + '\'' +
+//                ", ACCOUNT_ID = " + ACCOUNT_ID +
+//                ", balance = " + currencyFormat(balance) +
+//                '}';
+//    }
+
+// Customized_1 toString method
+//    @Override
+//    public String toString() {
+//        return "Account ID " + ACCOUNT_ID +
+//                ", " + customerName +
+//                ", balance = " + currencyFormat(balance);
+//    }
+
+    // Customized_2 toString method
     @Override
     public String toString() {
-        return "Account {" +
-                "customerName = '" + customerName + '\'' +
-                ", accountID = " + accountID +
-                ", balance = " + balance +
-                '}';
+        return String.format("Account ID %-8d %-23s balance: %-20s", ACCOUNT_ID, customerName, currencyFormat(balance));
+    }
+
+    private String currencyFormat(BigDecimal n) {
+        return NumberFormat.getCurrencyInstance().format(n);
     }
 }
